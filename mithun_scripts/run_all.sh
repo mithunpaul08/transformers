@@ -66,7 +66,7 @@ fi
 
 
 if [ $MACHINE_TO_RUN_ON == "laptop" ]; then
-      ./reduce_size.sh
+     ./reduce_size.sh
 fi
 
 

@@ -39,7 +39,8 @@ cd /home/u11/mithunpaul/xdisk/huggingface_bert/code/mithun_scripts/
 pip install -r requirements.txt
 
 bash run_all.sh --epochs_to_run $PBS_ARRAY_INDEX --machine_to_run_on server
-
+#for laptop - small size data
+#bash run_all.sh --epochs_to_run $PBS_ARRAY_INDEX --machine_to_run_on laptop
 
 
 

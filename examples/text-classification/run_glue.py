@@ -169,6 +169,11 @@ def main():
             else None
         )
 
+    # save the model only at the last epoch. this caluclation gives the step count after last epoch
+    # save_steps= no of steps per epoch * no of epochs= (size of data/batch size)*no of epochs
+    import math
+    training_args.save_steps=math.floor((len(train_dataset)/training_args.per_device_train_batch_size)*  training_args.num_train_epochs)
+
     # in the student teacher mode we will keep the dev as in-domain dev delex partition. The goal here is to find how the
     # combined model_teacher performs in a delexicalized dataset. This will serve as a verification point
     #to confirm the accuracy (we got 92.91% for fever delx in domain) if something goes wrong in the prediction phase below
