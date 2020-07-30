@@ -235,7 +235,7 @@ class StudentTeacherTrainer:
             train_sampler = get_tpu_sampler(self.train_dataset_combined)
         else:
             train_sampler = (
-                RandomSampler(self.train_dataset_combined)
+                SequentialSampler(self.train_dataset_combined)
                 if self.args.local_rank == -1
                 else DistributedSampler(self.train_dataset_combined)
             )
@@ -254,7 +254,7 @@ class StudentTeacherTrainer:
             train_sampler = get_tpu_sampler(self.train_dataset_combined)
         else:
             train_sampler = (
-                RandomSampler(self.train_dataset_combined)
+                SequentialSampler(self.train_dataset_combined)
                 if self.args.local_rank == -1
                 else DistributedSampler(self.train_dataset_combined)
             )
@@ -1263,7 +1263,8 @@ class Trainer:
             train_sampler = get_tpu_sampler(self.train_dataset)
         else:
             train_sampler = (
-                RandomSampler(self.train_dataset)
+                #this was original.replacing due to reproducability issues. RandomSampler(self.train_dataset)
+                SequentialSampler(self.train_dataset)
                 if self.args.local_rank == -1
                 else DistributedSampler(self.train_dataset)
             )
