@@ -59,7 +59,6 @@ if [ $EPOCHS = "1" ]; then
         echo "found epopch is equal to 1. going to download data"
         ./get_fever_fnc_data.sh
         ./convert_to_mnli_format.sh
-
 fi
 
 
