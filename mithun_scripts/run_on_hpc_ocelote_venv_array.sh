@@ -3,7 +3,7 @@
 #PBS -q windfall
 #PBS -l select=1:ncpus=28:mem=168gb:pcmem=6gb:ngpus=1:os7=True
 ### Specify a name for the job
-#PBS -N lex_bert_uncased_1_25epochs
+#PBS -N delex_bert_uncased_2_25epochs
 ### Specify the group name
 #PBS -W group_list=msurdeanu
 ### Used if job requires partial node only
@@ -12,7 +12,7 @@
 #PBS -l walltime=15:00:00
 ### Joins standard error and standard out
 #PBS -j oe
-####PBS -J 2-25
+#PBS -J [2-25]
 
 
 
