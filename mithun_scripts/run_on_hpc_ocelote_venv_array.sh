@@ -38,10 +38,8 @@ pip install --upgrade pip
 cd /home/u11/mithunpaul/xdisk/huggingface_bert_run_expts_on_hpc_branch/code/mithun_scripts/
 pip install -r requirements.txt
 
-bash run_all.sh --epochs_to_run $PBS_ARRAY_INDEX --machine_to_run_on server
-
-
-#bash run_all.sh --epochs_to_run 1 --machine_to_run_on server #for hpc, just to get data downloaded
+#bash run_all.sh --epochs_to_run $PBS_ARRAY_INDEX --machine_to_run_on server
+bash run_all.sh --epochs_to_run 1 --machine_to_run_on server #for hpc, just to get data downloaded
 # for laptop - small size data
 #bash run_all.sh --epochs_to_run 1 --machine_to_run_on laptop
 
