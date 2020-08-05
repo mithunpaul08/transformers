@@ -3,7 +3,7 @@
 #PBS -q standard
 #PBS -l select=1:ncpus=28:mem=168gb:pcmem=6gb:ngpus=1:os7=True
 ### Specify a name for the job
-#PBS -N lex_bert_cased_1e_to_download_tokenize_data
+#PBS -N delex_bert_uncased_15_to_25
 ### Specify the group name
 #PBS -W group_list=msurdeanu
 ### Used if job requires partial node only
@@ -12,7 +12,7 @@
 #PBS -l walltime=15:00:00
 ### Joins standard error and standard out
 #PBS -j oe
-#PBS -J 15-25
+##PBS -J 1
 
 
 
@@ -38,8 +38,8 @@ pip install --upgrade pip
 cd /home/u11/mithunpaul/xdisk/huggingface_bert_run_expts_on_hpc_branch/code/mithun_scripts/
 pip install -r requirements.txt
 
-bash run_all.sh --epochs_to_run $PBS_ARRAY_INDEX --machine_to_run_on server
-#bash run_all.sh --epochs_to_run 1 --machine_to_run_on server #for hpc, just to get data downloaded
+#bash run_all.sh --epochs_to_run $PBS_ARRAY_INDEX --machine_to_run_on server
+bash run_all.sh --epochs_to_run 1 --machine_to_run_on server #for hpc, just to get data downloaded
 # for laptop - small size data
 #bash run_all.sh --epochs_to_run 1 --machine_to_run_on laptop
 
