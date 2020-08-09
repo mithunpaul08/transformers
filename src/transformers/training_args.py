@@ -98,7 +98,15 @@ class TrainingArguments:
         default=-1,
         metadata={"help": "If > 0: set total number of training steps to perform. Override num_train_epochs."},
     )
-    warmup_steps: int = field(default=0, metadata={"help": "Linear warmup over warmup_steps."})
+    warmup_steps: int = field(default=3000, metadata={"help": "Linear warmup over warmup_steps. 3000 is around half of 7400- which is total number of steps in a n epoch of fever data"
+                                                              "set when batch size = 16. Need to tune this value, but it was found empirically that having a bigger warm up value"
+                                                              "helps stabilize the model in early epochs itself"})
+    max_steps_for_lr: int = field(default=200000, metadata={"help": "This valuje will be used in the factor that is used to reduce learning rate "
+                                                                    "linearly after warm up is achieved. Earlier it was a dynamic "
+                                                                    "value ==total number of steps which was introducing randomness to whole training process"
+                                                                    "and hence affecting reproducability"})
+
+
 
     logging_dir: Optional[str] = field(default=None, metadata={"help": "Tensorboard log dir."})
     logging_first_step: bool = field(default=False, metadata={"help": "Log and eval the first global_step"})
