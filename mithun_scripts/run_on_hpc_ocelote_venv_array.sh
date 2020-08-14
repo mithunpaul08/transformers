@@ -28,14 +28,14 @@ python3 -m venv my_virtual_env
 
 #this is the only line you need if you already have a virtual_env set up
 source my_virtual_env/bin/activate
-export PYTHONPATH="/home/u11/mithunpaul/xdisk/huggingface_bert_master/code/src"
+export PYTHONPATH="/home/u11/mithunpaul/xdisk/huggingface_bert_hpc_expts_branch/code/src"
 pip install --upgrade pip
 
 
 
 
 
-cd /home/u11/mithunpaul/xdisk/huggingface_bert_master/code/mithun_scripts/
+cd /home/u11/mithunpaul/xdisk/huggingface_bert_hpc_expts_branch/code/mithun_scripts/
 pip install -r requirements.txt
 
 #bash run_all.sh --epochs_to_run $PBS_ARRAY_INDEX --machine_to_run_on server
