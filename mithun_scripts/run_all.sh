@@ -28,8 +28,8 @@ fi
 
 
 if [ $MACHINE_TO_RUN_ON == "server" ]; then
-        export OUTPUT_DIR_BASE="/xdisk/msurdeanu/mithunpaul/huggingface_bert_run_expts_on_hpc_branch/output"
-        export DATA_DIR_BASE="/xdisk/msurdeanu/mithunpaul/huggingface_bert_run_expts_on_hpc_branch/data"
+        export OUTPUT_DIR_BASE="/xdisk/msurdeanu/mithunpaul/huggingface_bert_master/output"
+        export DATA_DIR_BASE="/xdisk/msurdeanu/mithunpaul/huggingface_bert_master/data"
 else
         export DATA_DIR_BASE="../src/transformers/data/datasets"
         export OUTPUT_DIR_BASE="output"
