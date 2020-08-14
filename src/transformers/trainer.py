@@ -1323,7 +1323,7 @@ class Trainer:
         return data_loader
 
     def get_optimizers(
-        self, num_training_steps: int
+            self, num_training_steps: int, lr_max_value: int
     ) -> Tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR]:
         """
         Setup the optimizer and the learning rate scheduler.
