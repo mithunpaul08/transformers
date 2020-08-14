@@ -311,7 +311,7 @@ class StudentTeacherTrainer:
         return data_loader
 
     def get_optimizers(
-        self, num_training_steps: int
+        self, num_training_steps: int,lr_max_value:int
     ) -> Tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR]:
         """
         Setup the optimizer and the learning rate scheduler.
@@ -346,7 +346,7 @@ class StudentTeacherTrainer:
         ]
         optimizer = AdamW(optimizer_grouped_parameters, lr=self.args.learning_rate, eps=self.args.adam_epsilon)
         scheduler = get_linear_schedule_with_warmup(
-            optimizer, num_warmup_steps=self.args.warmup_steps, num_training_steps=num_training_steps
+            optimizer, num_warmup_steps=self.args.warmup_steps, num_training_steps=lr_max_value
         )
         return optimizer, scheduler
 
@@ -1401,7 +1401,7 @@ class Trainer:
             t_total = int(len(train_dataloader) // self.args.gradient_accumulation_steps * self.args.num_train_epochs)
             num_train_epochs = self.args.num_train_epochs
 
-        optimizer, scheduler = self.get_optimizers(num_training_steps=t_total)
+        optimizer, scheduler = self.get_optimizers(num_training_steps=t_total,lr_max_value=self.args.lr_max_value)
 
         # Check if saved optimizer or scheduler states exist
         if (
