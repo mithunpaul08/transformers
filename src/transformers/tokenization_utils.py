@@ -1734,8 +1734,10 @@ class PreTrainedTokenizer(SpecialTokensMixin):
             )
 
         input_ids = []
+        total=len(batch_text_or_text_pairs)
         for index,ids_or_pair_ids in enumerate(batch_text_or_text_pairs):
             if isinstance(ids_or_pair_ids, (list, tuple)) and len(ids_or_pair_ids) == 2 and not is_pretokenized:
+                logger.info(f"{index}/{total}")
                 ids, pair_ids = ids_or_pair_ids
             else:
                 ids, pair_ids = ids_or_pair_ids, None
