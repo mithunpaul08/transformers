@@ -118,7 +118,7 @@ class TrainingArguments:
     logging_steps: int = field(default=500, metadata={"help": "Log every X updates steps."})
     save_steps: int = field(default=740000, metadata={"help": "Save checkpoint every X updates steps."})
     save_total_limit: Optional[int] = field(
-        default=None,
+        default=1,
         metadata={
             "help": (
                 "Limit the total amount of checkpoints."
@@ -127,7 +127,7 @@ class TrainingArguments:
         },
     )
     no_cuda: bool = field(default=False, metadata={"help": "Do not use CUDA even when it is available"})
-    seed: int = field(default=98394, metadata={"help": "random seed for initialization"})
+    seed: int = field(default=42, metadata={"help": "random seed for initialization"})
 
     fp16: bool = field(
         default=False,
@@ -148,6 +148,24 @@ class TrainingArguments:
         default=None, metadata={"help": "TPU: Number of TPU cores (automatically passed by launcher script)"}
     )
     tpu_metrics_debug: bool = field(default=False, metadata={"help": "TPU: Whether to print debug metrics"})
+
+
+    debug: bool = field(default=False, metadata={"help": "Whether to print debug metrics on TPU"})
+
+    dataloader_drop_last: bool = field(
+        default=False, metadata={"help": "Drop the last incomplete batch if it is not divisible by the batch size."}
+    )
+    eval_steps: int = field(default=74000, metadata={"help": "Run an evaluation every X steps."})
+
+    past_index: int = field(
+        default=-1,
+        metadata={"help": "If >=0, uses the corresponding part of the output as the past state for next step."},)
+
+
+    task_type: Optional[str] = field(default="lex", metadata={"help": "Types of task for fact verification. Options include lex, delex etc."})
+    subtask_type: Optional[str] = field(default="figerspecific", metadata={
+        "help": "Types of subtasks used in the delexicalization of data. Options include figerspecific,figerabstract, oaneretc."})
+
 
     @property
     def train_batch_size(self) -> int:

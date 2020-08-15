@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from typing import Callable, Dict, Optional
 
 import numpy as np
-
+import git
 from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer, EvalPrediction, GlueDataset,ParallelDataDataset
 from transformers import GlueDataTrainingArguments as DataTrainingArguments
 from transformers import (
@@ -38,6 +38,20 @@ from transformers import (
     set_seed,
 )
 
+
+def get_git_info():
+    repo = git.Repo(search_parent_directories=True)
+
+    repo_sha=str(repo.head.object.hexsha),
+    repo_short_sha= str(repo.git.rev_parse(repo_sha, short=6))
+
+    repo_infos = {
+        "repo_id": str(repo),
+        "repo_sha": str(repo.head.object.hexsha),
+        "repo_branch": str(repo.active_branch),
+        "repo_short_sha" :repo_short_sha
+    }
+    return repo_infos
 
 logger = logging.getLogger(__name__)
 
@@ -87,11 +101,19 @@ def main():
         )
 
     # Setup logging
+    git_details = get_git_info()
+
+    log_file_name = git_details['repo_short_sha'] + "_" + (training_args.task_type) + "_" + (
+        training_args.subtask_type) + "_" + str(model_args.model_name_or_path).replace("-",
+                                                                                       "_") + "_" + data_args.task_name + ".log"
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
         datefmt="%m/%d/%Y %H:%M:%S",
         level=logging.INFO if training_args.local_rank in [-1, 0] else logging.WARN,
+        filename=log_file_name,
+        filemode='w'
     )
+    logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
     logger.warning(
         "Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, 16-bits training: %s",
         training_args.local_rank,

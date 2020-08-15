@@ -3,16 +3,16 @@
 #PBS -q standard
 #PBS -l select=1:ncpus=28:mem=168gb:pcmem=6gb:ngpus=1:os7=True
 ### Specify a name for the job
-#PBS -N lex_bert_cased_1epochs
+#PBS -N dev_branch_lex_cased_figers_128
 ### Specify the group name
 #PBS -W group_list=msurdeanu
 ### Used if job requires partial node only
 #PBS -l place=pack:shared
 ### Walltime is how long your job will run
-#PBS -l walltime=15:00:00
+#PBS -l walltime=65:00:00
 ### Joins standard error and standard out
 #PBS -j oe
-###PBS -J 15-25
+
 
 
 
@@ -28,20 +28,18 @@ python3 -m venv my_virtual_env
 
 #this is the only line you need if you already have a virtual_env set up
 source my_virtual_env/bin/activate
-export PYTHONPATH="/home/u11/mithunpaul/xdisk/huggingface_bert_hpc_expts_branch/code/src"
+export PYTHONPATH="/home/u11/mithunpaul/xdisk/huggingface_bert_dev/code/src"
+
+
 pip install --upgrade pip
 
 
-
-
-
-cd /home/u11/mithunpaul/xdisk/huggingface_bert_hpc_expts_branch/code/mithun_scripts/
+cd /home/u11/mithunpaul/xdisk/huggingface_bert_deb/code/examples
 pip install -r requirements.txt
 
-#bash run_all.sh --epochs_to_run $PBS_ARRAY_INDEX --machine_to_run_on server
-bash run_all.sh --epochs_to_run 1 --machine_to_run_on server #for hpc, just to get data downloaded
-# for laptop - small size data
-#bash run_all.sh --epochs_to_run 1 --machine_to_run_on laptop
+cd /home/u11/mithunpaul/xdisk/huggingface_bert_dev/code/mithun_scripts
+
+bash run_all.sh --epochs_to_run 1 --machine_to_run_on hpc #options include [laptop, hpc,clara]
 
 
 
