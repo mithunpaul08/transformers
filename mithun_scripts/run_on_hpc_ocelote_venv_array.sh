@@ -9,7 +9,7 @@
 ### Used if job requires partial node only
 #PBS -l place=pack:shared
 ### Walltime is how long your job will run
-#PBS -l walltime=65:00:00
+#PBS -l walltime=15:00:00
 ### Joins standard error and standard out
 #PBS -j oe
 
@@ -28,7 +28,7 @@ python3 -m venv my_virtual_env
 
 #this is the only line you need if you already have a virtual_env set up
 source my_virtual_env/bin/activate
-export PYTHONPATH="/home/u11/mithunpaul/xdisk/huggingface_bert_dev/code/src"
+export PYTHONPATH="/home/u11/mithunpaul/xdisk/huggingface_bert_hpc_expts_branch/code/src"
 
 
 pip install --upgrade pip
