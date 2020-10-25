@@ -106,7 +106,7 @@ fi
 fi
 
 
-####################################for cross domain student teacher, there will be two training files.-one for mod1 and another for mod2
+####################################for cross domain student teacher, there will be two training files.-one for lex and another for delex
 
 
 if [ "$TASK_TYPE" = "combined" ] && [ "$TASK_NAME" = "fevercrossdomain" ] && [ "$SUB_TASK_TYPE" = "figerspecific" ]; then
@@ -264,6 +264,73 @@ if test -f "$FILE";then
 echo "$FILE exists"
 else
     wget https://storage.googleapis.com/fact_verification_mithun_files/TSV/FNC/in-domain/oa/dev.tsv -O $FILE
+fi
+
+fi
+
+
+####################################for cross domain student teacher, there will be two training files.-one for lex and another for delex
+#fnc cross domain means, train on fnc and test on fever
+
+
+if [ "$TASK_TYPE" = "combined" ] && [ "$TASK_NAME" = "fnccrossdomain" ] && [ "$SUB_TASK_TYPE" = "figerspecific" ]; then
+    echo "found task type to be combined, taskname to be feverCrossDomain and subtasktype to be figerspecific"
+
+echo $DATA_DIR
+mkdir -p $DATA_DIR
+
+FILE="$DATA_DIR/train1.tsv"
+if test -f "$FILE";then
+    echo "$FILE exists"
+else
+
+    wget https://osf.io/r6mdz/download -O $FILE
+fi
+
+
+FILE="$DATA_DIR/train2.tsv"
+if test -f "$FILE";then
+    echo "$FILE exists"
+else
+      wget https://osf.io/8shu4/download -O $FILE
+fi
+
+FILE="$DATA_DIR/dev.tsv"
+if test -f "$FILE";then
+    echo "$FILE exists"
+else
+
+    #uncomment this if you want to feed lexicalized version of the dataset (fever-dev) as  dev partition. this is useful when you want to sanity check  how a lexicalized model is performing
+    wget https://osf.io/azf6t/download -O $FILE
+    #wget https://osf.io/r5pz3/download -O $FILE
+
+fi
+
+
+#note that we are  replacing the test partition with cross domain dev partition(in this case. it thus becomes the in-domain dev partition of fnc dataset).
+
+FILE="$DATA_DIR/test.tsv"
+if test -f "$FILE";then
+echo "$FILE exists"
+else
+
+      # if you want to use the lexicalized version of the dataset (fnc-dev) as the test partition.
+      # this is useful when you want to sanity check  how a lexicalized model is performing
+      #wget https://osf.io/qs4u6/download -O $FILE
+
+      # fnc-dev delexicalized using figerspecific
+      #wget https://osf.io/jx32m/download   -O $FILE
+
+      # fnc-test delexicalized using figerspecific
+      #wget https://osf.io/jentp/download   -O $FILE
+
+
+        # fnc-test lexicalized/plaintext
+      wget https://osf.io/r5uvd/download -O $FILE
+
+
+
+
 fi
 
 fi
