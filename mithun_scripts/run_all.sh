@@ -33,7 +33,13 @@ if [ $5 == "--use_toy_data" ]; then
 fi
 fi
 
+#bash run_all.sh --epochs_to_run 2 --machine_to_run_on laptop --use_toy_data true --download_fresh_data true
 
+if [ $# -gt 7 ]; then
+if [ $7 == "--download_fresh_data" ]; then
+        export DOWNLOAD_FRESH_DATA=$8
+fi
+fi
 
 
 
@@ -81,30 +87,28 @@ echo "value of DATA_DIR is $DATA_DIR"
 
 
 
-#get data fresh before every run
-echo ". going to download data"
 
 
+if [ $DOWNLOAD_FRESH_DATA == "true" ]; then
+    rm -rf $DATA_DIR
+    ./get_fever_fnc_data.sh
+    ./convert_to_mnli_format.sh
+fi
 
-
-rm -rf $DATA_DIR
-./get_fever_fnc_data.sh
-
-./convert_to_mnli_format.sh
 #create a small part of data as toy data. this will be used to run regresssion tests before the actual run starts
 ./reduce_size.sh  --data_path $TOY_DATA_DIR_PATH
 
 echo "done with data download  TOY_DATA_DIR_PATH now is $TOY_DATA_DIR_PATH"
 
 
-#
-##use a smaller toy data to test on laptop
-#if [ $MACHINE_TO_RUN_ON == "laptop" ]; then
-#        DATA_DIR=$TOY_DATA_DIR_PATH
-#fi
+
+#use a smaller toy data to test on laptop
+if [ $MACHINE_TO_RUN_ON == "laptop" ]; then
+        DATA_DIR=$TOY_DATA_DIR_PATH
+fi
 
 
-#use a smaller toy data to test
+#use a smaller toy data to test if asked for. especially if you want to do this in your server/hpc machine
 
 if  [ "$USE_TOY_DATA" = true ]; then
         DATA_DIR=$TOY_DATA_DIR_PATH
@@ -123,13 +127,13 @@ export args="--model_name_or_path $BERT_MODEL_NAME   --task_name $TASK_NAME     
 
 
 #test cases
-#./run_training_tests.sh
+./run_training_tests.sh
 #./run_loading_tests.sh
 
 
 
 #actual code runs
 #./run_glue.sh
-./load_model_test.sh
+#./load_model_test.sh
 
 

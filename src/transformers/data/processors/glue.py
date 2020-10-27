@@ -412,7 +412,7 @@ class FeverInDomainProcessor(DataProcessor):
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples
 
-class FeverCrossDomainProcessor(DataProcessor):
+class CrossDomainProcessor(DataProcessor):
     """Processor for the MultiNLI data set (GLUE version)."""
 
     def get_example_from_tensor_dict(self, tensor_dict):
@@ -786,7 +786,9 @@ glue_tasks_num_labels = {
     "rte": 2,
     "wnli": 2,
     "feverindomain": 3 ,
-    "fevercrossdomain": 4
+    "fevercrossdomain": 4,
+    "fnccrossdomain": 3
+
 }
 
 glue_processors = {
@@ -801,7 +803,8 @@ glue_processors = {
     "rte": RteProcessor,
     "wnli": WnliProcessor,
     "feverindomain": FeverInDomainProcessor,
-    "fevercrossdomain": FeverCrossDomainProcessor
+    "fevercrossdomain": CrossDomainProcessor,
+    "fnccrossdomain": CrossDomainProcessor
 
 }
 

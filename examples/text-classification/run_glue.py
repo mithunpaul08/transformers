@@ -306,8 +306,12 @@ def run_training(model_args, data_args, training_args):
 
         return compute_metrics_fn
 
-    dev_compute_metrics = build_compute_metrics_fn("feverindomain")
-    test_compute_metrics = build_compute_metrics_fn("fevercrossdomain")
+    if (training_args.TASK_NAME=="fevercrossdomain"):
+        dev_compute_metrics = build_compute_metrics_fn("feverindomain")
+        test_compute_metrics = build_compute_metrics_fn("fevercrossdomain")
+    if (training_args.TASK_NAME == "fnccrossdomain"):
+        dev_compute_metrics = build_compute_metrics_fn("fnccrossdomain")
+        test_compute_metrics = build_compute_metrics_fn("fnccrossdomain")
 
     if training_args.do_train_1student_1teacher:
         trainer = StudentTeacherTrainer(
