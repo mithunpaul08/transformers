@@ -412,7 +412,7 @@ class FeverInDomainProcessor(DataProcessor):
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples
 
-class CrossDomainProcessor(DataProcessor):
+class FeverCrossDomainProcessor(DataProcessor):
     """Processor for the MultiNLI data set (GLUE version)."""
 
     def get_example_from_tensor_dict(self, tensor_dict):
@@ -448,6 +448,57 @@ class CrossDomainProcessor(DataProcessor):
     def get_labels(self):
         """See base class."""
         return ["disagree", "agree", "discuss","unrelated"]
+
+    def _create_examples(self, lines, set_type):
+        """Creates examples for the training, dev and test sets."""
+        examples = []
+        for (i, line) in tqdm(enumerate(lines),desc="creating examples",total=len(lines)):
+            if i == 0:
+                continue
+            guid = "%s-%s" % (set_type, line[0])
+            text_a = line[8]
+            text_b = line[9]
+            label = None if set_type.startswith("test") else line[-1]
+            examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
+        return examples
+
+
+class FncCrossDomainProcessor(DataProcessor):
+    """Processor for the MultiNLI data set (GLUE version)."""
+
+    def get_example_from_tensor_dict(self, tensor_dict):
+        """See base class."""
+        return InputExample(
+            tensor_dict["idx"].numpy(),
+            tensor_dict["premise"].numpy().decode("utf-8"),
+            tensor_dict["hypothesis"].numpy().decode("utf-8"),
+            str(tensor_dict["label"].numpy()),
+        )
+
+    def get_train_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
+    def get_train_examples_set1(self, data_dir):
+        """See base class."""
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train1.tsv")), "train")
+
+    def get_train_examples_set2(self, data_dir):
+        """See base class."""
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train2.tsv")), "train")
+    def get_dev_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.tsv")), "dev")
+
+
+
+    def get_test_examples(self, data_dir):
+        """See base class."""
+        #passing dev instead of test to make it read labels also.
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "test.tsv")), "dev")
+
+    def get_labels(self):
+        """See base class."""
+        return ["disagree", "agree", "nei"]
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training, dev and test sets."""
@@ -803,8 +854,8 @@ glue_processors = {
     "rte": RteProcessor,
     "wnli": WnliProcessor,
     "feverindomain": FeverInDomainProcessor,
-    "fevercrossdomain": CrossDomainProcessor,
-    "fnccrossdomain": CrossDomainProcessor
+    "fevercrossdomain": FeverCrossDomainProcessor,
+    "fnccrossdomain": FncCrossDomainProcessor
 
 }
 
@@ -821,4 +872,5 @@ glue_output_modes = {
     "wnli": "classification",
     "feverindomain": "classification",
     "fevercrossdomain": "classification",
+    "fnccrossdomain": "classification"
 }

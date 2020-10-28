@@ -1170,19 +1170,26 @@ class StudentTeacherTrainer:
             test_partition_evaluation_result,plain_text,gold_labels,predictions_logits=self._intermediate_eval(datasets=self.test_dataset,
                                     epoch=epoch, output_eval_file=test_partition_evaluation_output_file_path, description="test_partition",model_to_test_with=trained_model)
 
-            fnc_score_test_partition = test_partition_evaluation_result['eval_acc']['cross_domain_fnc_score']
-            accuracy_test_partition = test_partition_evaluation_result['eval_acc']['cross_domain_acc']
 
+            accuracy_test_partition=0
+            for k,v in test_partition_evaluation_result.items():
+                print(k,v)
+                logger.info(f"k,v test_partition_evaluation_result{k},{v}")
 
+            assert test_partition_evaluation_result['eval_acc']['accuracy'] is not None
+            accuracy_test_partition = test_partition_evaluation_result['eval_acc']['accuracy']
 
-            if fnc_score_test_partition>best_fnc_score:
-                best_fnc_score=fnc_score_test_partition
+            # if the accuracy or fnc_score_test_partition beats the highest so far, write predictions to disk
+            if accuracy_test_partition>best_acc:
+                best_acc=accuracy_test_partition
 
-                logger.info(f"found that the current fncscore:{fnc_score_test_partition} in epoch "
-                            f"{epoch} beats the bestfncscore so far i.e ={best_fnc_score}. going to prediction"
-                            f"on test partition and save that and model to disk")
-                #if the accuracy or fnc_score_test_partition beats the highest so far, write predictions to disk
+                # logger.info(f"found that the current fncscore:{fnc_score_test_partition} in epoch "
+                #             f"{epoch} beats the bestfncscore so far i.e ={best_fnc_score}. going to prediction"
+                #             f"on test partition and save that and model to disk")
 
+                logger.info(f"found that the current accuracy_test_partition:{accuracy_test_partition} in epoch "
+                            f"{epoch} beats the best_acc so far i.e ={best_acc}. going to write the predictions"
+                            f"on test partition to disk")
                 self.write_predictions_to_disk(plain_text, gold_labels, predictions_logits, predictions_on_test_file_path,
                                                self.test_dataset)
 

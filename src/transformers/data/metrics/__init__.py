@@ -36,7 +36,7 @@ if _has_sklearn:
     def acc_renamed(preds, labels):
         acc = simple_accuracy(preds, labels)
         return {
-            "in_domain_acc": acc
+            "accuracy": acc
         }
 
     def acc_and_fnc_score(preds, labels):

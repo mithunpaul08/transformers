@@ -306,10 +306,10 @@ def run_training(model_args, data_args, training_args):
 
         return compute_metrics_fn
 
-    if (training_args.TASK_NAME=="fevercrossdomain"):
+    if (data_args.task_name=="fevercrossdomain"):
         dev_compute_metrics = build_compute_metrics_fn("feverindomain")
         test_compute_metrics = build_compute_metrics_fn("fevercrossdomain")
-    if (training_args.TASK_NAME == "fnccrossdomain"):
+    if (data_args.task_name == "fnccrossdomain"):
         dev_compute_metrics = build_compute_metrics_fn("fnccrossdomain")
         test_compute_metrics = build_compute_metrics_fn("fnccrossdomain")
 

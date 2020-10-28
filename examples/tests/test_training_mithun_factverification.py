@@ -163,21 +163,27 @@ def test_run_glue():
         logger.addHandler(stream_handler)
 
         dev_partition_evaluation_result,test_partition_evaluation_result = run_glue.run_training( model_args, data_args, training_args)
-        accuracy_dev_partition = dev_partition_evaluation_result['eval_acc']['in_domain_acc']
-        fnc_score_test_partition = test_partition_evaluation_result['eval_acc']['cross_domain_fnc_score']
-        accuracy_test_partition = test_partition_evaluation_result['eval_acc']['cross_domain_acc']
+        accuracy_dev_partition = dev_partition_evaluation_result['eval_acc']['accuracy']
+
+        accuracy_test_partition = test_partition_evaluation_result['eval_acc']['accuracy']
         print(f"value of accuracy_dev_partition={accuracy_dev_partition}")
-        print(f"value of fnc_score_test_partition={fnc_score_test_partition}")
         print(f"value of accuracy_test_partition={accuracy_test_partition}")
         # check if the training meets minimum accuracy. note that in laptop we run on a toy data set of size 17 and
         # in hpc (high performance computing server) we test on 100 data points. so the threshold accuracy to check
         # is different in each case
+       # try:
+
         assert training_args.fever_in_domain_accuracy_on_toy_data_17_datapoints != 1.0
         assert training_args.fever_cross_domain_accuracy_on_toy_data_17_datapoints != 1.0
         assert training_args.fever_cross_domain_fncscore_on_toy_data_17_datapoints != 1.0
         assert accuracy_dev_partition == training_args.fever_in_domain_accuracy_on_toy_data_17_datapoints
         assert accuracy_test_partition == training_args.fever_cross_domain_accuracy_on_toy_data_17_datapoints
-        assert fnc_score_test_partition == training_args.fever_cross_domain_fncscore_on_toy_data_17_datapoints
+
+        # except:
+        #     e = sys.exc_info()[0]
+        #     logger.info(f"error occured inside test assertions in test cases. going to exit.. the error is as folows{e}")
+        #     sys.exit(1)
+
 
 
 

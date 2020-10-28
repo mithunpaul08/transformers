@@ -75,7 +75,7 @@ export TOY_DATA_DIR_PATH="$DATA_DIR_BASE/$DATASET/$TASK_NAME/$TASK_TYPE/$SUB_TAS
 
 
 export BERT_MODEL_NAME="bert-base-cased" #options include things like [bert-base-uncased,bert-base-cased] etc. refer src/transformers/tokenization_bert.py for more.
-export MAX_SEQ_LENGTH="256"
+export MAX_SEQ_LENGTH="128"
 export OUTPUT_DIR="$OUTPUT_DIR_BASE/$DATASET/$TASK_NAME/$TASK_TYPE/$SUB_TASK_TYPE/$BERT_MODEL_NAME/$MAX_SEQ_LENGTH/"
 echo $OUTPUT_DIR
 
@@ -88,8 +88,9 @@ echo "value of DATA_DIR is $DATA_DIR"
 
 
 
-
+echo "$DOWNLOAD_FRESH_DATA"
 if [ $DOWNLOAD_FRESH_DATA == "true" ]; then
+    echo "found DOWNLOAD_FRESH_DATA is true "
     rm -rf $DATA_DIR
     ./get_fever_fnc_data.sh
     ./convert_to_mnli_format.sh
@@ -126,14 +127,15 @@ export args="--model_name_or_path $BERT_MODEL_NAME   --task_name $TASK_NAME     
 
 
 
-#test cases
-./run_training_tests.sh
+#always run both regression tests and actual training together to make sure nothing has been affected
+
+#to run training
+#./run_training_tests.sh
+./run_glue.sh
+
+
+#to load a trained model and test with it
 #./run_loading_tests.sh
-
-
-
-#actual code runs
-#./run_glue.sh
 #./load_model_test.sh
 
 
