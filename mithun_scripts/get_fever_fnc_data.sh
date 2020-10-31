@@ -298,12 +298,17 @@ else
       wget https://osf.io/f2g4k/download -O $FILE
 fi
 
-#dev.tsv will be the lexicalized  fnc dev data but with 3 labels
+
 FILE="$DATA_DIR/dev.tsv"
 if test -f "$FILE";then
     echo "$FILE exists"
 else
-    wget https://osf.io/msxfg/download -O $FILE
+    #dev.tsv will be the delexicalized  fnc dev data but with 3 labels
+    #wget https://osf.io/msxfg/download -O $FILE
+
+    #use this if you want dev.tsv to be the lexicalized  fnc dev data  with 3 labels
+    #this is usually useful when you are training lex-teacher model alone
+     wget https://osf.io/a2m6e/download -O $FILE
 
 fi
 
