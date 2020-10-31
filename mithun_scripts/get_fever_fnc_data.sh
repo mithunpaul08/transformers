@@ -309,14 +309,17 @@ fi
 
 
 #note that we are  replacing the test partition with cross domain dev partition
-# (in this case. it thus becomes the in-domain dev partition of fever dataset). delexicalized with figer specific
 
 FILE="$DATA_DIR/test.tsv"
 if test -f "$FILE";then
 echo "$FILE exists"
 else
 
-      wget https://osf.io/bnv7g/download -O $FILE
+        #dev partition of fever dataset. delexicalized with figer specific
+      https://osf.io/4n7b6/download -O $FILE
+
+      #lexicalized version of fever indomain dev partition. use this when you are training on lex
+      #wget https://osf.io/xdbh6/download -O $FILE
 
 
 

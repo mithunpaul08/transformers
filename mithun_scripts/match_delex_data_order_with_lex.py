@@ -25,12 +25,12 @@ def _create_examples( lines, set_type):
 
 def write_csv(all_inputs_rearranged):
     import csv
-    with open('/Users/mordor/research/huggingface/src/transformers/data/datasets/fever/fevercrossdomain/combined/figerabstract/train2_index_fixed.tsv', 'w', newline='') as csvfile:
+    with open('/Users/mordor/Downloads/fever_dev_delex_rearranged.txt', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter='\t')
         for line in all_inputs_rearranged:
             spamwriter.writerow(line)
     csvfile.close()
     return
 
-all_inputs_rearranged=_create_examples(_read_tsv("/Users/mordor/research/huggingface/src/transformers/data/datasets/fever/fevercrossdomain/combined/figerabstract/train2.tsv"),"dev")
+all_inputs_rearranged=_create_examples(_read_tsv("/Users/mordor/Downloads/fever_dev_delex.txt"),"dev")
 write_csv(all_inputs_rearranged)
