@@ -1172,9 +1172,9 @@ class StudentTeacherTrainer:
 
 
             accuracy_test_partition=0
-            for k,v in test_partition_evaluation_result.items():
-                print(k,v)
-                logger.info(f"k,v test_partition_evaluation_result{k},{v}")
+            # for k,v in test_partition_evaluation_result.items():
+            #     print(k,v)
+            #     logger.info(f"k,v test_partition_evaluation_result{k},{v}")
 
             assert test_partition_evaluation_result['eval_acc']['accuracy'] is not None
             accuracy_test_partition = test_partition_evaluation_result['eval_acc']['accuracy']

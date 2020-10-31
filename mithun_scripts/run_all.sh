@@ -129,7 +129,7 @@ export args="--model_name_or_path $BERT_MODEL_NAME   --task_name $TASK_NAME     
 
 #always run both regression tests and actual training together to make sure nothing has been affected
 
-#to run training
+
 #./run_training_tests.sh
 ./run_glue.sh
 
