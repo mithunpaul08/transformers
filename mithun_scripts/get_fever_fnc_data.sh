@@ -316,10 +316,10 @@ echo "$FILE exists"
 else
 
         #dev partition of fever dataset. delexicalized with figer specific
-      wget https://osf.io/4n7b6/download -O $FILE
+      #wget https://osf.io/4n7b6/download -O $FILE
 
       #lexicalized version of fever indomain dev partition. use this when you are training on lex
-      #wget https://osf.io/xdbh6/download -O $FILE
+      wget https://osf.io/xdbh6/download -O $FILE
 
 
 
