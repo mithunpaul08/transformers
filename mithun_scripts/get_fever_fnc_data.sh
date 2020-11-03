@@ -304,11 +304,11 @@ if test -f "$FILE";then
     echo "$FILE exists"
 else
     #dev.tsv will be the delexicalized  fnc dev data but with 3 labels
-    #wget https://osf.io/msxfg/download -O $FILE
+    wget https://osf.io/msxfg/download -O $FILE
 
     #use this if you want dev.tsv to be the lexicalized  fnc dev data  with 3 labels
     #this is usually useful when you are training lex-teacher model alone
-     wget https://osf.io/a2m6e/download -O $FILE
+     #wget https://osf.io/a2m6e/download -O $FILE
 
 fi
 
@@ -321,10 +321,10 @@ echo "$FILE exists"
 else
 
         #dev partition of fever dataset. delexicalized with figer specific
-      #wget https://osf.io/4n7b6/download -O $FILE
+      wget https://osf.io/4n7b6/download -O $FILE
 
       #lexicalized version of fever indomain dev partition. use this when you are training on lex
-      wget https://osf.io/xdbh6/download -O $FILE
+      #wget https://osf.io/xdbh6/download -O $FILE
 
 
 
