@@ -1181,7 +1181,7 @@ class StudentTeacherTrainer:
 
             # if the accuracy or fnc_score_test_partition beats the highest so far, write predictions to disk
             if accuracy_test_partition>best_acc:
-                best_acc=accuracy_test_partition
+
 
                 # logger.info(f"found that the current fncscore:{fnc_score_test_partition} in epoch "
                 #             f"{epoch} beats the bestfncscore so far i.e ={best_fnc_score}. going to prediction"
@@ -1193,6 +1193,7 @@ class StudentTeacherTrainer:
                 self.write_predictions_to_disk(plain_text, gold_labels, predictions_logits, predictions_on_test_file_path,
                                                self.test_dataset)
 
+                best_acc = accuracy_test_partition
                 # Save model checkpoint
                 self.model=trained_model
                 output_dir = os.path.join(self.args.output_dir)
