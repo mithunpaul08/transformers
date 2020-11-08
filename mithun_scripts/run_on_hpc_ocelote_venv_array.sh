@@ -29,19 +29,19 @@ python3 -m venv my_virtual_env
 #this is the only line you need if you already have a virtual_env set up
 source my_virtual_env/bin/activate
 
-export PYTHONPATH="/home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_class_loss_weight0pt0875lr4eminus5/code/src"
+export PYTHONPATH="/home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_class_loss_weight0pt0875lr1eminus6/code/src"
 export CUDA_VISIBLE_DEVICES=0
 
 pip install --upgrade pip
 
    
-cd /home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_class_loss_weight0pt0875lr4eminus5/code/examples
+cd /home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_class_loss_weight0pt0875lr1eminus6/code/examples
 
 pip install -r requirements.txt
 pip install transformers
 pip install wget
 
-cd /home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_class_loss_weight0pt0875lr4eminus5/code/mithun_scripts
+cd /home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_class_loss_weight0pt0875lr1eminus6/code/mithun_scripts
 
 bash run_all.sh --epochs_to_run 100 --machine_to_run_on hpc --use_toy_data false --download_fresh_data true
 #machine_to_run_on : [laptop, hpc,clara]
