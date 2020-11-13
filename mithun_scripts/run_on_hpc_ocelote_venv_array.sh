@@ -43,7 +43,7 @@ pip install wget
 
 cd /home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_class_loss_weight0pt0875lr1eminus6/code/mithun_scripts
 
-bash run_all.sh --epochs_to_run 100 --machine_to_run_on hpc --use_toy_data true --download_fresh_data true
+bash run_all.sh --epochs_to_run 100 --machine_to_run_on hpc --use_toy_data false --download_fresh_data true
 #machine_to_run_on : [laptop, hpc,clara]
 #stub to use in laptop
 #bash run_all.sh --epochs_to_run 2 --machine_to_run_on laptop --use_toy_data true
