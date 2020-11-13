@@ -17,5 +17,6 @@ nlp
 tensorflow
 pytest
 transformers
+pytest
 
 
