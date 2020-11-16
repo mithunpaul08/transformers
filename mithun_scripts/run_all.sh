@@ -64,7 +64,7 @@ echo "EPOCHS=$EPOCHS"
 
 export DATASET="fever"
 export basedir="$DATA_DIR_BASE/$DATASET"
-export TASK_TYPE="combined" #options for task type include mod1,mod2,and combined"". combined is used in case of student teacher architecture which will load a paralleldataset from both mod1 and mod2 folders
+export TASK_TYPE="lex" #options for task type include mod1,mod2,and combined"". combined is used in case of student teacher architecture which will load a paralleldataset from both mod1 and mod2 folders
 export SUB_TASK_TYPE="figerspecific" #options for TASK_SUB_TYPE (usually used only for TASK_TYPEs :[mod2,combined])  include [oa, figerspecific, figerabstract, oass, simplener]
 export TASK_NAME="fnccrossdomain" #options for TASK_NAME  include fevercrossdomain,feverindomain,fnccrossdomain,fncindomain
 export DATA_DIR="$DATA_DIR_BASE/$DATASET/$TASK_NAME/$TASK_TYPE/$SUB_TASK_TYPE"
@@ -84,6 +84,9 @@ echo "OUTPUT_DIR=$OUTPUT_DIR"
 
 echo "value of epochs is $EPOCHS"
 echo "value of DATA_DIR is $DATA_DIR"
+echo "value of TASK_TYPE is $TASK_TYPE"
+echo "value of SUB_TASK_TYPE is $SUB_TASK_TYPE"
+echo "value of TASK_NAME is $TASK_NAME"
 
 
 
@@ -94,6 +97,7 @@ if [ $DOWNLOAD_FRESH_DATA == "true" ]; then
     rm -rf $DATA_DIR
     ./get_fever_fnc_data.sh
     ./convert_to_mnli_format.sh
+
 fi
 
 #create a small part of data as toy data. this will be used to run regresssion tests before the actual run starts

@@ -2345,8 +2345,8 @@ class Trainer:
                                                                        description="test_partition",
                                                                        model_to_test_with=model)
 
-            fnc_score_test_partition = test_partition_evaluation_result['eval_acc']['cross_domain_fnc_score']
-            accuracy_test_partition = test_partition_evaluation_result['eval_acc']['cross_domain_acc']
+            fnc_score_test_partition = test_partition_evaluation_result['eval_acc']['accuracy']
+            accuracy_test_partition = test_partition_evaluation_result['eval_acc']['accuracy']
             self.write_predictions_to_disk(plain_text, gold_labels, predictions, predictions_on_test_file_path,self.test_dataset)
 
 
