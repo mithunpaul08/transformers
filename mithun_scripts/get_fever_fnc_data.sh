@@ -12,7 +12,7 @@ echo $DATA_DIR
 mkdir -p $DATA_DIR
 echo "found task type is lex and task name as fever cross domain"
 
-exit
+
 
 
 FILE=$DATA_DIR/train.tsv
