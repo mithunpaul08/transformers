@@ -242,19 +242,19 @@ def run_training(model_args, data_args, training_args):
 
     if (training_args.do_train_1student_1teacher == True):
         # the task type must be combined, not lex or delex. also make sure the corresponding data has been downloaded in get_fever_fnc_data.sh
-        # eval_dataset = (
-        #     GlueDataset(args=data_args, tokenizer=tokenizer_delex, task_type="delex", mode="dev",
-        #                 cache_dir=model_args.cache_dir)
-        #     if training_args.do_eval
-        #     else None
-        # )
-        #use this code, which has tokenizer=tokenizer_lex if you are planning to run lex/teacher alone from inside the student teacher architecture
         eval_dataset = (
-            GlueDataset(args=data_args, tokenizer=tokenizer_lex, task_type="lex", mode="dev",
+            GlueDataset(args=data_args, tokenizer=tokenizer_delex, task_type="delex", mode="dev",
                         cache_dir=model_args.cache_dir)
             if training_args.do_eval
             else None
         )
+        #use this code, which has tokenizer=tokenizer_lex if you are planning to run lex/teacher alone from inside the student teacher architecture
+        # eval_dataset = (
+        #     GlueDataset(args=data_args, tokenizer=tokenizer_lex, task_type="lex", mode="dev",
+        #                 cache_dir=model_args.cache_dir)
+        #     if training_args.do_eval
+        #     else None
+        # )
 
     else:
         if (training_args.task_type == "lex"):
@@ -281,19 +281,19 @@ def run_training(model_args, data_args, training_args):
         # the task type must be combined, not lex or delex. also make sure the corresponding data has been downloaded in get_fever_fnc_data.sh
         # in the student teacher mode the evaluation always happens in the delex cross domain dev data. here we are loading it as the test partition so that we can keep track of
         # progress across epochs
-        # test_dataset = (
-        #     GlueDataset(data_args, tokenizer=tokenizer_delex, task_type="delex", mode="test", cache_dir=model_args.cache_dir)
-        #     if training_args.do_predict
-        #     else None
-        # )
-        #use this code below when you are running teacher only from inside student teacher mode-i.e
-        # the test data is lex, so should your tokenizer and task_type be
         test_dataset = (
-            GlueDataset(data_args, tokenizer=tokenizer_lex, task_type="lex", mode="test",
-                        cache_dir=model_args.cache_dir)
+            GlueDataset(data_args, tokenizer=tokenizer_delex, task_type="delex", mode="test", cache_dir=model_args.cache_dir)
             if training_args.do_predict
             else None
         )
+        # #use this code below when you are running teacher only from inside student teacher mode-i.e
+        # # the test data is lex, so should your tokenizer and task_type be
+        # test_dataset = (
+        #     GlueDataset(data_args, tokenizer=tokenizer_lex, task_type="lex", mode="test",
+        #                 cache_dir=model_args.cache_dir)
+        #     if training_args.do_predict
+        #     else None
+        #)
     else:
         if (training_args.task_type == "lex"):
             test_dataset = (
