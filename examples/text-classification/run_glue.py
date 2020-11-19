@@ -279,12 +279,12 @@ def run_training(model_args, data_args, training_args):
             else None
         )
         #use this when you are running teacher only from inside student teacher mode-i.e the test data is lex, so should tokenizer also be
-        test_dataset = (
-            GlueDataset(data_args, tokenizer=tokenizer_lex, task_type="lex", mode="test",
-                        cache_dir=model_args.cache_dir)
-            if training_args.do_predict
-            else None
-        )
+        # test_dataset = (
+        #     GlueDataset(data_args, tokenizer=tokenizer_lex, task_type="lex", mode="test",
+        #                 cache_dir=model_args.cache_dir)
+        #     if training_args.do_predict
+        #     else None
+        # )
     else:
         if (training_args.task_type == "lex"):
             test_dataset = (
