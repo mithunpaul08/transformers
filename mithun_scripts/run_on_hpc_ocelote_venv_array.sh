@@ -3,7 +3,7 @@
 #PBS -q standard
 #PBS -l select=1:ncpus=28:mem=168gb:pcmem=6gb:ngpus=1:os7=True
 ### Specify a name for the job
-#PBS -N huggingface_bert_fnc_to_fever_delex_from_inside_student_teacher
+#PBS -N huggingface_bert_fnc_to_fever_delex_from_stand_alone_code
 ### Specify the group name
 #PBS -W group_list=msurdeanu
 ### Used if job requires partial node only
@@ -29,19 +29,19 @@ python3 -m venv my_virtual_env
 #this is the only line you need if you already have a virtual_env set up
 source my_virtual_env/bin/activate
 
-export PYTHONPATH="/home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_delex_from_inside_student_teacher/code/src"
+export PYTHONPATH="/home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_delex_from_stand_alone_code/code/src"
 export CUDA_VISIBLE_DEVICES=0
 
 pip install --upgrade pip
 
    
-cd /home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_delex_from_inside_student_teacher/code/examples
+cd /home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_delex_from_stand_alone_code/code/examples
 
 pip install -r requirements.txt
 pip install transformers
 pip install wget
 
-cd /home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_delex_from_inside_student_teacher/code/mithun_scripts
+cd /home/u11/mithunpaul/xdisk/huggingface_bert_fnc_to_fever_delex_from_stand_alone_code/code/mithun_scripts
 
 bash run_all.sh --epochs_to_run 100 --machine_to_run_on hpc --use_toy_data false --download_fresh_data true
 #machine_to_run_on : [laptop, hpc,clara]

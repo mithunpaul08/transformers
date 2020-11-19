@@ -33,6 +33,7 @@ echo "data_dir is $DATA_DIR"
 echo $args
 
 
+
 mkdir -p OUTPUT_DIR
 
 env CUDA_VISIBLE_DEVICES=0

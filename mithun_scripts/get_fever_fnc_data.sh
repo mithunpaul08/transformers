@@ -288,7 +288,7 @@ else
     wget https://osf.io/dwef7/download -O $FILE
 fi
 
-#train2.tsv is the delexicalized version (in this case delexicalixed with figerspecifc) of train1.tsv
+#train2.tsv is the delexicalized version (in this case fnc-train delexicalixed with figerspecifc) of train1.tsv
 FILE="$DATA_DIR/train2.tsv"
 if test -f "$FILE";then
     echo "$FILE exists"
@@ -374,6 +374,59 @@ else
 
       #lexicalized version of fever indomain dev partition. use this when you are training on lex
       wget https://osf.io/xdbh6/download -O $FILE
+
+
+
+
+fi
+
+fi
+
+
+####################################for cross domain student teacher, there will be two training files.-one for lex and another for delex
+#fnccrossdomain means, train on fnc and test on fever
+# note that when training on fnc and testing on fever, the total numbere of labels will be that in fever. So in this case, when we
+# use fnccrossdomain, data, it is a data where 4 labels (agree, disagree, discuss, unrelated) has been reduced to 3 for fever (agree, disagree,nei)
+
+
+if [ "$TASK_TYPE" = "delex" ] && [ "$TASK_NAME" = "fnccrossdomain" ] && [ "$SUB_TASK_TYPE" = "figerspecific" ]; then
+    echo "found task type to be delex, taskname to be fnccrossdomain and subtasktype to be figerspecific"
+
+
+echo $DATA_DIR
+mkdir -p $DATA_DIR
+
+#train.tsv will be the delexicalized  fnc train data but with 3 labels (to be same as that of fever).
+# i.e should be 40904 datapoints with 3 labels. i.e, agree, disagree, nei
+
+FILE="$DATA_DIR/train.tsv"
+if test -f "$FILE";then
+    echo "$FILE exists"
+else
+   wget https://osf.io/f2g4k/download -O $FILE
+fi
+
+
+FILE="$DATA_DIR/dev.tsv"
+if test -f "$FILE";then
+    echo "$FILE exists"
+else
+    #dev.tsv will be the delexicalized  fnc dev data but with 3 labels
+    #should have 9068 data points
+    wget https://osf.io/msxfg/download -O $FILE
+
+fi
+
+
+
+FILE="$DATA_DIR/test.tsv"
+if test -f "$FILE";then
+echo "$FILE exists"
+else
+
+#note that we are  replacing the test partition with cross domain dev partition
+# so this will be the delexicalized version of fever dev partition. with 3 labels. should have 26252 claim evidence pairs
+      wget https://osf.io/4n7b6/download -O $FILE
 
 
 
