@@ -64,7 +64,7 @@ echo "EPOCHS=$EPOCHS"
 
 export DATASET="fever"
 export basedir="$DATA_DIR_BASE/$DATASET"
-export TASK_TYPE="combined" #options for task type include mod1,mod2,and combined"". combined is used in case of student teacher architecture which will load a paralleldataset from both mod1 and mod2 folders
+export TASK_TYPE="lex" #options for task type include mod1,mod2,and combined"". combined is used in case of student teacher architecture which will load a paralleldataset from both mod1 and mod2 folders
 export SUB_TASK_TYPE="figerspecific" #options for TASK_SUB_TYPE (usually used only for TASK_TYPEs :[mod2,combined])  include [oa, figerspecific, figerabstract, oass, simplener]
 export TASK_NAME="fnccrossdomain" #options for TASK_NAME  include fevercrossdomain,feverindomain,fnccrossdomain,fncindomain
 export DATA_DIR="$DATA_DIR_BASE/$DATASET/$TASK_NAME/$TASK_TYPE/$SUB_TASK_TYPE"
@@ -128,7 +128,7 @@ export args="--model_name_or_path $BERT_MODEL_NAME   --task_name $TASK_NAME     
 --learning_rate 1e-5      --num_train_epochs $EPOCHS     --output_dir $OUTPUT_DIR --overwrite_output_dir  \
 --weight_decay 0.01 --adam_epsilon 1e-6  --evaluate_during_training \
 --task_type $TASK_TYPE --subtask_type $SUB_TASK_TYPE --machine_to_run_on $MACHINE_TO_RUN_ON \
---toy_data_dir_path $TOY_DATA_DIR_PATH --overwrite_cache --attention_dropout 0.9"
+--toy_data_dir_path $TOY_DATA_DIR_PATH --overwrite_cache "
 
 
 
@@ -136,11 +136,11 @@ export args="--model_name_or_path $BERT_MODEL_NAME   --task_name $TASK_NAME     
 
 
 #./run_training_tests.sh
-./run_glue.sh
+#./run_glue.sh
 
 
 #to load a trained model and test with it
 #./run_loading_tests.sh
-#./load_model_test.sh
+./load_model_test.sh
 
 
